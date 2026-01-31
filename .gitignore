@@ -17,3 +17,4 @@ env/
 .DS_Store
 .vscode/
 .idea/
+tk_demo.db
