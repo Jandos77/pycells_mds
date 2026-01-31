@@ -8,6 +8,21 @@ from typing import List, Optional, Any
 
 from pycells_mds.core import PyCells
 
+from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
+import os
+import time
+
+
+
+
+
+
+
+STARTED_AT = time.time()
+
+
+
 
 # --------------------------------------------------------------
 # SCHEMAS
@@ -72,6 +87,56 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+ASSETS_DIR = os.path.abspath(os.path.join(BASE_DIR, "..", "assets"))
+
+
+app.mount("/assets", StaticFiles(directory=ASSETS_DIR), name="assets")
+
+
+
+
+@app.get("/", include_in_schema=False)
+def index():
+    return FileResponse(os.path.join(ASSETS_DIR, "html", "index.html"))
+
+
+
+
+
+@app.get("/health", include_in_schema=False)
+def health():
+    checks = {}
+
+    # DB
+    try:
+        pc.read("Table1", "List1", "A1", 1)
+        checks["db"] = "ok"
+    except Exception:
+        checks["db"] = "error"
+
+    # Redis / cursor
+    try:
+        pc.get_active_cursor(1)
+        checks["redis"] = "ok"
+    except Exception:
+        checks["redis"] = "error"
+
+    status = "ok" if all(v == "ok" for v in checks.values()) else "degraded"
+
+    return {
+        "status": status,
+        "checks": checks,
+        "started_at": int(STARTED_AT),
+        "uptime_sec": int(time.time() - STARTED_AT),
+    }
+
+
+
 
 
 # ==============================================================

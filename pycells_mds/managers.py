@@ -1,4 +1,5 @@
-# managers/table_manager.py
+# pycells_mds/managers.py
+
 import json
 from datetime import datetime, timezone
 from redis import Redis

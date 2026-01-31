@@ -1,4 +1,4 @@
-# user_api.py
+# pycells_mds/users.py
 
 import hashlib
 from sqlalchemy import or_

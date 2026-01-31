@@ -50,6 +50,8 @@ pip install pycells_mds
 ```bash
 Python 3.9+
 
+fastapi
+
 SQLAlchemy
 
 NumPy
@@ -293,6 +295,20 @@ for name, c in data.items():
 
 ## 📡 FastAPI Integration
 
+### Run API server
+
+```bash
+pip install pycells_mds
+pycells_api
+```
+
+### Or manually:
+
+```bash
+uvicorn pycells_api.main:app --host 0.0.0.0 --port 8000
+```
+
+
 ### PyCells works perfectly as a backend engine behind FastAPI.
 ### Typical endpoints:
 
@@ -319,6 +335,12 @@ for name, c in data.items():
 - Document engines
 
 - Structured multidimensional data
+
+## Run demo (Tk)
+
+```bash
+pycells_demo_tk
+```
 
 
 ## 📜 License

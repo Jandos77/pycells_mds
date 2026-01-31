@@ -1,4 +1,4 @@
-# pycells.py
+# pycells_mds/core.py
 
 from .session import db, init_db
 from .models import TableModel, ListModel

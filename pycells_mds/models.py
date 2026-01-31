@@ -1,3 +1,5 @@
+# pycells_mds/models.py
+
 from sqlalchemy import (
     Column, Integer, String, Text, Boolean, ForeignKey,
     DateTime, UniqueConstraint, JSON
@@ -45,7 +47,7 @@ class ListModel(Base):
     table = relationship(
         "TableModel",
         back_populates="lists",
-        foreign_keys=[table_id]   # <-- ОБЯЗАТЕЛЬНО
+        foreign_keys=[table_id]   
     )
 
     cells = relationship(

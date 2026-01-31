@@ -1,4 +1,4 @@
-# wrappers/list_wrapper.py
+# pycells_mds/wrappers.py
 
 from .session import db, RANGE_RE, _expand_range
 from .models import TableModel, ListModel, CellModel, GroupModel
@@ -360,7 +360,7 @@ class ListWrapper:
     # ------------------------------------------
 
     def get_cell(self, name: str) -> CellModel | None:
-        """Возвращает ORM CellModel по имени ячейки."""
+        """Returns an ORM CellModel given the cell name."""
         return (
             self.session.query(CellModel)
             .filter_by(list_id=self.model.id, name=name)
@@ -435,7 +435,7 @@ class ListWrapper:
     # ------------------------------------------
 
     def evaluate_cell(self, name: str):
-        """Пересчитать конкретную ячейку."""
+        """Recalculate a specific cell."""
         cell = self.get_cell(name)
         if not cell:
             return None
@@ -454,9 +454,9 @@ class ListWrapper:
 
     def recalc_all(self):
         """
-        Пересчитать все ячейки листа.
-        Полная замена старого recalc_all_safe().
-        Логика теперь лежит ТУТ, а не в модели.
+        Recalculate all sheet cells.
+        Complete replacement of the old recalc_all_safe().
+        The logic now lies HERE, and not in the model.
         """
         for cell in self.model.cells:
             wrapper = CellWrapper(cell)
